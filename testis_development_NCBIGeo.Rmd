@@ -1,0 +1,54 @@
+---
+title: "Gene Expression Analysis of Rat Testis Across Developmental Stages"
+author: "Brad Hansen"
+date: "3/24/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# **Gene Expression Analysis of Rat Testis Across Developmental Stages**
+
+### Data from [NCBI GEO](https://www.ncbi.nlm.nih.gov/geo/)
+
+Data used:
+
+> GEO study [GSE108348](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108348)
+>
+>> Study GSE108348 includes transcriptomes from three species, four organs, across five developmental stages. This project considers the 
+
+> GEO study XXXYYYZZZ
+>
+>> Study XXXYYYZZZ includes...
+
+> GEO study XXXYYYZZZ
+>
+>> Study XXXYYYZZZ includes...
+
+> GEO study XXXYYYZZZ
+>
+>> Study XXXYYYZZZ includes...
+
+> GEO study XXXYYYZZZ\
+>
+>> Study XXXYYYZZZ includes...
+
+
+
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
