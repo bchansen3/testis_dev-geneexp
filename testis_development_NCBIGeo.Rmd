@@ -41,7 +41,7 @@ Data used:
 
 ```{r load packages, include=FALSE}
 if (!require("pacman"))install.packages("pacman")
-pacman::p_load(DESeq2, plyranges, tidyverse, Glimma)
+pacman::p_load(DESeq2, plyranges, tidyverse, Glimma, dplyr)
 
 
 
@@ -116,7 +116,35 @@ lfc <- list(sample1 = c("Adult","Newborn", "Adult" ), sample2 = c("Newborn", "La
 #glimmaMDS(dds_testis)
 
 glimmaMA(dds_testis)
+
+
 ```
 
+```{r biomart}
 
+library(biomaRt)
+
+ensembl <- useEnsembl(biomart = "genes", dataset = "rnorvegicus_gene_ensembl")
+
+searchAttributes(mart = ensembl, pattern = "name")
+
+
+genes <- lfc$GeneID
+
+lfc_names <- lfc
+names(lfc_names)[3] <- 'ensembl_gene_id'
+
+
+G_list <- getBM(filters= "ensembl_gene_id", attributes= c("ensembl_gene_id","external_gene_name"),values=genes,mart= ensembl)
+
+```
+
+Add gene names back to lfc object
+
+```{r add gene name}
+
+testis_genenames <- dplyr::left_join(lfc_names, G_list, by='ensembl_gene_id')
+
+testis_genenames %>% as_tibble() %>% drop_na() %>% filter(pvalue <0.05)
+```
 
