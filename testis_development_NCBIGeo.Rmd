@@ -17,7 +17,7 @@ Data used:
 
 > GEO study [GSE108348](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108348)
 >
->> Study GSE108348 includes transcriptomes from three species, four organs, across five developmental stages. This project considers the 
+>> Study GSE108348 includes transcriptomes from three species (*mouse, rat, chicken*), four organs (*testis, brain, liver, kidney*), across five developmental stages (*E 13.5, E 18.5-19, PND 1-2, 8-10 weeks, 24 months*). This project considers the testis data for rats (Wistar) across the development stages. The data is Bulk RNA-seq from a Illumina HiSeq 2000.
 
 > GEO study XXXYYYZZZ
 >
@@ -39,16 +39,39 @@ Data used:
 
 
 
-```{r cars}
-summary(cars)
+```{r load packages, include=FALSE}
+library(DESeq2)
+library(plyranges)
+library(tidyverse)
 ```
 
-## Including Plots
+## Count Matrix
 
-You can also embed plots, for example:
+Generate a counts matrix with genes as the rows and samples as the column.
+
+```{r rat data}
+counts <- list.files('data/', pattern = '.txt.gz$', full.names = T) %>% 
+  as_tibble_col('file') %>%
+  mutate(data = map(file, read.delim)) %>% 
+  mutate(sample_name = str_extract(file, '[^/]+(?=.txt.gz$)')) %>% 
+  select(-file) %>%
+  unnest(cols = c(data))
+```
+
+## Metadata
+
+Add sample information
 
 ```{r pressure, echo=FALSE}
-plot(pressure)
+metdata <- colnames(counts[3:length(counts)-1]) %>%
+  as_tibble_col("sample_name")%>%
+  add_column(tissue= NA, rep = NA, time=NA)  
+
+
+metdata$rep <- str_sub(metdata$sample_name,-1)
+metdata$tissue <- str_extract(metdata$sample_name, "Kidney|Testis|Liver|Brain")
+metdata$time <- str_extract(metdata$sample_name, "LateEmbryo|EarlyEmbryo|Newborn|Adult|Aged")
+ 
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
