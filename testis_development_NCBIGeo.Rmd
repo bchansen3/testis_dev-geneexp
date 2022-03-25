@@ -40,9 +40,9 @@ Data used:
 
 
 ```{r load packages, include=FALSE}
-library(DESeq2)
-library(plyranges)
-library(tidyverse)
+if (!require("pacman"))install.packages("pacman")
+pacman::p_load(dplyr, DESeq2, plyranges, tidyverse, Glimma, try.bioconductor=TRUE)
+
 ```
 
 ## Count Matrix
@@ -55,15 +55,20 @@ counts <- list.files('data/', pattern = '.txt.gz$', full.names = T) %>%
   mutate(data = map(file, read.delim)) %>% 
   mutate(sample_name = str_extract(file, '[^/]+(?=.txt.gz$)')) %>% 
   select(-file) %>%
-  unnest(cols = c(data))
+  unnest(cols = c(data))%>%
+  column_to_rownames("GeneID")
+
+## subset to testis only
+
+testis_counts <- counts[33:40]
 ```
 
 ## Metadata
 
 Add sample information
 
-```{r pressure, echo=FALSE}
-metdata <- colnames(counts[3:length(counts)-1]) %>%
+```{r metadata, echo=FALSE}
+metdata <- colnames(counts[2:length(counts)-1]) %>%
   as_tibble_col("sample_name")%>%
   add_column(tissue= NA, rep = NA, time=NA)  
 
@@ -71,7 +76,37 @@ metdata <- colnames(counts[3:length(counts)-1]) %>%
 metdata$rep <- str_sub(metdata$sample_name,-1)
 metdata$tissue <- str_extract(metdata$sample_name, "Kidney|Testis|Liver|Brain")
 metdata$time <- str_extract(metdata$sample_name, "LateEmbryo|EarlyEmbryo|Newborn|Adult|Aged")
- 
+
+#subset to testis only
+metdata_testis <- metdata[metdata$tissue=="Testis",]%>% column_to_rownames("sample_name")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Differential Expression with DESeq2
+
+The subsetted objects for testis are used in DESeq2 with time as the design factor
+
+```{r diff exp}
+
+ddsObject <- DESeq2::DESeqDataSetFromMatrix(countData = testis_counts,
+                                            colData = metdata_testis, design = ~ time)
+dds_testis <- DESeq2::DESeq(ddsObject)
+
+```
+```{r comparison}
+
+lfc <- list(sample1 = c("Adult","Newborn", "Adult" ), sample2 = c("Newborn", "LateEmbryo", "LateEmbryo")) %>% 
+  as_tibble() %>%
+  mutate(deseq_results = map2(sample1, sample2, function(x, y)
+    DESeq2::results(dds_testis, contrast = c("time", x, y)))) %>%
+  mutate(lfc = map(deseq_results, function(res)
+    res[c('baseMean', 'log2FoldChange', 'pvalue')] %>% as.data.frame() %>% rownames_to_column("GeneID"))) %>%
+  select(-deseq_results) %>%
+  unnest() %>%
+  rename(mean_counts = baseMean, lfc = log2FoldChange) %>%
+  arrange(lfc) %>%
+  print()
+
+```
+
+
+
