@@ -41,7 +41,9 @@ Data used:
 
 ```{r load packages, include=FALSE}
 if (!require("pacman"))install.packages("pacman")
-pacman::p_load(dplyr, DESeq2, plyranges, tidyverse, Glimma, try.bioconductor=TRUE)
+pacman::p_load(DESeq2, plyranges, tidyverse, Glimma)
+
+
 
 ```
 
@@ -87,8 +89,7 @@ The subsetted objects for testis are used in DESeq2 with time as the design fact
 
 ```{r diff exp}
 
-ddsObject <- DESeq2::DESeqDataSetFromMatrix(countData = testis_counts,
-                                            colData = metdata_testis, design = ~ time)
+ddsObject <- DESeq2::DESeqDataSetFromMatrix(countData = testis_counts, colData = metdata_testis, design = ~ time)
 dds_testis <- DESeq2::DESeq(ddsObject)
 
 ```
@@ -106,6 +107,15 @@ lfc <- list(sample1 = c("Adult","Newborn", "Adult" ), sample2 = c("Newborn", "La
   arrange(lfc) %>%
   print()
 
+```
+
+## Try Glimma
+
+```{r glimma}
+
+#glimmaMDS(dds_testis)
+
+glimmaMA(dds_testis)
 ```
 
 
