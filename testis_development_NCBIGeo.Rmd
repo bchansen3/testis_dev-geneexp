@@ -13,29 +13,34 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Data from [NCBI GEO](https://www.ncbi.nlm.nih.gov/geo/)
 
+Search terms: *testis*, *rat*, *testes*, *postnatal*, 
+
+Only RNA-seq data used (not microarray).
+
 Data used:
 
 > GEO study [GSE108348](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108348)
 >
 >> Study GSE108348 includes transcriptomes from three species (*mouse, rat, chicken*), four organs (*testis, brain, liver, kidney*), across five developmental stages (*E 13.5, E 18.5-19, PND 1-2, 8-10 weeks, 24 months*). This project considers the testis data for rats (Wistar) across the development stages. The data is Bulk RNA-seq from a Illumina HiSeq 2000.
 
-> GEO study XXXYYYZZZ
+> GEO study [GSE162152](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE162152)
+>> Study GSE162152 includes gene expression profiling of testis (*also liver and cerebellum*) across five species (*opossum, mouse, rat, rhesus macaque, human*). The authors specifically targeted circRNAs through RNA R treatment, though this analysis only uses the untreated samples. The data is Bulk RNA-seq from Illumina HiSeq 2500. Rat samples taken at 16 weeks of age.
+
+> GEO study [GSE125483](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE125483)
+>
+>> Study GSE1235483 includes gene expression profiles from 12 tissues, across 4 species (*cynomolgus macaque, mouse, rat, and dog*). Here we use testis data from 9 week old brown norway rats.
+
+> GEO study [GSE85420](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE85420)
+>
+>> Study GSE85420 includes gene expression profiling after exposure to 2,2’,4’4’ –Tetrabromodiphenyl Ether. This study looks at the testis RNA-seq data for the control group of Wistar rats at PND 120 (~17 weeks) 
+
+> GEO study [GSE41637](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE41637)
 >
 >> Study XXXYYYZZZ includes...
 
-> GEO study XXXYYYZZZ
+> GEO study [GSE53960](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE53960)
 >
 >> Study XXXYYYZZZ includes...
-
-> GEO study XXXYYYZZZ
->
->> Study XXXYYYZZZ includes...
-
-> GEO study XXXYYYZZZ\
->
->> Study XXXYYYZZZ includes...
-
-
 
 
 
@@ -43,9 +48,9 @@ Data used:
 if (!require("pacman"))install.packages("pacman")
 pacman::p_load(DESeq2, plyranges, tidyverse, Glimma, dplyr)
 
-
-
 ```
+# GEO study [GSE108348](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108348)
+
 
 ## Count Matrix
 
@@ -92,6 +97,8 @@ The subsetted objects for testis are used in DESeq2 with time as the design fact
 ddsObject <- DESeq2::DESeqDataSetFromMatrix(countData = testis_counts, colData = metdata_testis, design = ~ time)
 dds_testis <- DESeq2::DESeq(ddsObject)
 
+plotMA(dds_testis)
+
 ```
 ```{r comparison}
 
@@ -113,9 +120,10 @@ lfc <- list(sample1 = c("Adult","Newborn", "Adult" ), sample2 = c("Newborn", "La
 
 ```{r glimma}
 
-#glimmaMDS(dds_testis)
+glimmaMDS(dds_testis)
 
-glimmaMA(dds_testis)
+
+glimmaVolcano(dds_testis)
 
 
 ```
@@ -147,4 +155,6 @@ testis_genenames <- dplyr::left_join(lfc_names, G_list, by='ensembl_gene_id')
 
 testis_genenames %>% as_tibble() %>% drop_na() %>% filter(pvalue <0.05)
 ```
+
+
 
