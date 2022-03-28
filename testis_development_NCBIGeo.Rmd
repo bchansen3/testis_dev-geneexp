@@ -23,7 +23,9 @@ Data used:
 >
 > > Study GSE108348 includes transcriptomes from three species (*mouse, rat, chicken*), four organs (*testis, brain, liver, kidney*), across five developmental stages (*E 13.5, E 18.5-19, PND 1-2, 8-10 weeks, 24 months*). This project considers the testis data for rats (Wistar) across the development stages. The data is Bulk RNA-seq from a Illumina HiSeq 2000.
 
-> GEO study [GSE162152](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE162152) \> Study GSE162152 includes gene expression profiling of testis (*also liver and cerebellum*) across five species (*opossum, mouse, rat, rhesus macaque, human*). The authors specifically targeted circRNAs through RNA R treatment, though this analysis only uses the untreated samples. The data is Bulk RNA-seq from Illumina HiSeq 2500. Rat samples taken at 16 weeks of age.
+> GEO study [GSE162152](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE162152)
+>
+> > Study GSE162152 includes gene expression profiling of testis (*also liver and cerebellum*) across five species (*opossum, mouse, rat, rhesus macaque, human*). The authors specifically targeted circRNAs through RNA R treatment, though this analysis only uses the untreated samples. The data is Bulk RNA-seq from Illumina HiSeq 2500. Rat samples taken at 16 weeks of age.
 
 > GEO study [GSE125483](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE125483)
 >
@@ -41,19 +43,39 @@ Data used:
 >
 > > Study GSE53960 assesses the *"transcriptomic profiling across 11 organs, 4 ages, and 2 sexes of Fischer 344 rats."* This study uses the testis data from 2, 6, 21, and 104 week old Fischer 344 rats.
 
-
-
 ```{r load packages, include=FALSE}
 if (!require("pacman"))install.packages("pacman")
 pacman::p_load(DESeq2, plyranges, tidyverse, Glimma, dplyr, timevis)
 
 ```
 
-# Overall Periods Covered
+# Periods Covered
 
-
-
-
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Period                                      | Species    | Strain                            | Source                                                                                                                                               |
++=============================================+============+===================================+======================================================================================================================================================+
+| Embryonic Day 13.5 (*midstage embryo*)      | Rat        | Wistar                            | [GSE108348](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108348)                                                                            |
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Embryonic Day 18.5-19 (*late Embryo*)       | Rat        | Wistar                            | [GSE108348](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108348)                                                                            |
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Post Natal Day 1-2 (*neonate*)              | Rat        | Wistar                            | [GSE108348](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108348)                                                                            |
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2 weeks old (*young*)                       | Rat        | Fischer 344                       | [GSE53960](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE53960)                                                                              |
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 6 weeks old (*young*)                       | Rat        | Fischer 344                       | [GSE53960](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE53960)                                                                              |
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 8-10 weeks old (*young adult*), 9 weeks old | Rat        | Wistar, Brown rat                 | [GSE108348](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108348), [GSE125483](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE125483) |
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 16 weeks old (*adult*)                      | Rat        | Norway Brown (*NCBI Taxon 10116*) | [GSE162152](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE162152)                                                                            |
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 17 weeks old (*adult*)                      | Rat        | Wistar                            | [GSE85420](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE85420)                                                                              |
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 21 weeks old (*adult*)                      | Rat        | Fischer 344                       | [GSE53960](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE53960)                                                                              |
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2 years old (*aged adult*)                  | Rat        | Wistar , Fisher 344               | [GSE108348](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108348), [GSE53960](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE53960)   |
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| *Breeding Age*                              | Rat        | Sprague-Dawley                    | [GSE41637](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE41637)                                                                              |
++---------------------------------------------+------------+-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 # GEO study [GSE108348](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE108348)
 
