@@ -1,0 +1,11 @@
+/bigdata/faustmanlab/bch/gse108348/SRR6396793
+/bigdata/faustmanlab/bch/gse108348/SRR6396803
+/bigdata/faustmanlab/bch/gse108348/SRR6396794
+/bigdata/faustmanlab/bch/gse108348/SRR6396795
+/bigdata/faustmanlab/bch/gse108348/SRR6396796
+/bigdata/faustmanlab/bch/gse108348/SRR6396797
+/bigdata/faustmanlab/bch/gse108348/SRR6396798
+/bigdata/faustmanlab/bch/gse108348/SRR6396799
+/bigdata/faustmanlab/bch/gse108348/SRR6396800
+/bigdata/faustmanlab/bch/gse108348/SRR6396801
+/bigdata/faustmanlab/bch/gse108348/SRR6396802

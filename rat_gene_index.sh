@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # add STAR to PATH
-PATH=$PATH:/home/NETID/bhansen3/STAR-2.7.10a/source
+export PATH=$PATH:/home/NETID/bhansen3/STAR-2.7.10a/source
 
 # set directory
 cd /bigdata/faustmanlab/bch/rat_assembly
 
-# STAR command
+# STAR command 
 
 STAR --runThreadN 2 \
 --runMode genomeGenerate \

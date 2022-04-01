@@ -17,4 +17,10 @@ fasterq-dump --split-files ##addSRR##
 
 tar xzvf sratoolkit.3.0.0-ubuntu64.tar.gz
 
-export PATH=$PATH:/sratoolkit.3.0.0-ubuntu64/bin 
+export PATH=$PATH:/home/NETID/bhansen3/sratoolkit.3.0.0-ubuntu64/bin 
+
+# to do fasterq-dump
+fasterq-dump /bigdata/faustmanlab/bch/gse108348/SRR6396793
+
+# to run faster q dump on subfolder and save on bigdata drive
+cat /home/NETID/bhansen3/vscode/testis_dev-geneexp/gse108348_list.txt | xargs fasterq-dump --outdir /bigdata/faustmanlab/bch/gse108348/fastq
