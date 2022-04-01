@@ -1,0 +1,41 @@
+STAR version=2.7.10a
+STAR compilation time,server,dir=2022-03-29T14:09:29-07:00 :/home/NETID/bhansen3/STAR-2.7.10a/source
+STAR git: 
+##### Command Line:
+STAR --runThreadN 2 --genomeDir /bigdata/faustmanlab/bch/rat_assembly/ncbi-star_index --readFilesIn /bigdata/faustmanlab/bch/gse108348/*.fastq.gz --outSAMtype BAM SortedByCoordinate --quantMode GeneCounts --readFilesCommand zcat --outFileNamePrefix *_
+##### Initial USER parameters from Command Line:
+outFileNamePrefix                 *_
+###### All USER parameters from Command Line:
+runThreadN                    2     ~RE-DEFINED
+genomeDir                     /bigdata/faustmanlab/bch/rat_assembly/ncbi-star_index     ~RE-DEFINED
+readFilesIn                   /bigdata/faustmanlab/bch/gse108348/*.fastq.gz        ~RE-DEFINED
+outSAMtype                    BAM   SortedByCoordinate        ~RE-DEFINED
+quantMode                     GeneCounts        ~RE-DEFINED
+readFilesCommand              zcat        ~RE-DEFINED
+outFileNamePrefix             *_     ~RE-DEFINED
+##### Finished reading parameters from all sources
+
+##### Final user re-defined parameters-----------------:
+runThreadN                        2
+genomeDir                         /bigdata/faustmanlab/bch/rat_assembly/ncbi-star_index
+readFilesIn                       /bigdata/faustmanlab/bch/gse108348/*.fastq.gz   
+readFilesCommand                  zcat   
+outFileNamePrefix                 *_
+outSAMtype                        BAM   SortedByCoordinate   
+quantMode                         GeneCounts   
+
+-------------------------------
+##### Final effective command line:
+STAR   --runThreadN 2   --genomeDir /bigdata/faustmanlab/bch/rat_assembly/ncbi-star_index   --readFilesIn /bigdata/faustmanlab/bch/gse108348/*.fastq.gz      --readFilesCommand zcat      --outFileNamePrefix *_   --outSAMtype BAM   SortedByCoordinate      --quantMode GeneCounts   
+----------------------------------------
+
+Number of fastq files for each mate = 1
+
+   Input read files for mate 1 :
+!!!!! WARNING:  Could not ls /bigdata/faustmanlab/bch/gse108348/*.fastq.gz
+ls: cannot access '/bigdata/faustmanlab/bch/gse108348/*.fastq.gz': No such file or directory
+
+EXITING: because of fatal INPUT file error: could not open read file: /bigdata/faustmanlab/bch/gse108348/*.fastq.gz
+SOLUTION: check that this file exists and has read permision.
+
+Apr 01 16:23:57 ...... FATAL ERROR, exiting

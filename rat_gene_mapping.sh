@@ -12,7 +12,7 @@ export PATH=$PATH:/home/NETID/bhansen3/STAR-2.7.10a/source
 index=/bigdata/faustmanlab/bch/rat_assembly/ncbi-star_index
 
 # provide direction to fastq files
-FILES=/bigdata/faustmanlab/bch/gse108348/*.fastq.gz
+FILES=/bigdata/faustmanlab/bch/gse108348/fastq/*.fastq.gz
 
 for f in $FILES
 do
