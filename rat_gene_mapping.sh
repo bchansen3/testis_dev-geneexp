@@ -20,7 +20,7 @@ do
     base=$(basename $f .fastq.gz)
     echo $base
     STAR --runThreadN 2 --genomeDir $index --readFilesIn $f --outSAMtype BAM SortedByCoordinate \
-         --quantMode GeneCounts --readFilesCommand zcat --outFileNamePrefix $base"_"
+         --quantMode GeneCounts --readFilesCommand zcat --outFileNamePrefix /bigdata/faustmanlab/bch/gse108348/$base"_"
 done
 
 echo "hopefully that worked!"
